@@ -1,0 +1,51 @@
+<div class="page__wrapper">
+    <div class="page-header">
+        <div class="header-item">
+            Тестовое задание
+        </div>
+        <div class="header-item">
+            <label class="label" [for]="'userName'">Поиск</label>
+            <input [id]="'userName'" (input)="onSearchChange($event.target)">
+        </div>
+        <div class="header-item">
+            <app-switcher (onSwitch)="switchViewType($event)"></app-switcher>
+        </div>
+    </div>
+    <div class="page-main">
+        <ng-container *ngIf="userList$ | async as users; else load">
+            <ng-container *ngIf="loading">
+                <ng-container *ngTemplateOutlet="loader"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="!loading">
+                <div class="content"
+                     [ngClass]="{'content--rows': viewType, 'content--cards': !viewType}"
+                >
+                    <ng-container *ngFor="let item of users.items">
+                        <div class="row__item">
+                            <span>{{item.user_name}}</span>
+                            <span class="row__item-icon" (click)="removeItem(item)">🗑️</span>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <app-pagination
+                *ngIf="users.total_count"
+                [totalItems]="users.total_count"
+                [itemsPerPage]="5"
+                (pageChange)="onPageChange($event)"
+                (itemsPerPageChange)="onItemsPerPageChange($event)"
+            >
+            </app-pagination>
+            <div *ngIf="!users.total_count" class="no-data">Данных нет</div>
+        </ng-container>
+        <ng-template #load>
+            <ng-container *ngTemplateOutlet="loader"></ng-container>
+        </ng-template>
+
+    </div>
+</div>
+
+<ng-template #loader>
+    <div class="loader">Загрузка...</div>
+</ng-template>
+

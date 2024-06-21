@@ -1,0 +1,68 @@
+.page {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &-header {
+        display: flex;
+        gap: 16px;
+        background-color: red;
+
+        padding: 4px;
+
+        & .header-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 32px;
+
+            & label {
+                font-size: 16px;
+                color: white;
+            }
+
+            & input {
+                width: 130px;
+                height: 16px;
+            }
+        }
+
+    }
+
+    &-main {
+        padding: 16px;
+
+        & .content {
+            gap: 8px;
+
+            &--rows {
+                display: flex;
+                flex-direction: column;
+            }
+
+            &--cards {
+                display: grid;
+                grid-template-columns: repeat(3, 120px);
+
+            }
+        }
+
+        & .row__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px;
+            background-color: aliceblue;
+            max-width: 120px;
+
+            &--cards {
+
+            }
+
+            &-icon {
+                cursor: pointer;
+            }
+        }
+    }
+}
